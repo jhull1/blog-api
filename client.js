@@ -1,20 +1,5 @@
-
-var shoppingItemTemplate = (
-  '<li class="js-shopping-item">' +
-    '<p><span class="shopping-item js-shopping-item-name"></span></p>' +
-    '<div class="shopping-item-controls">' +
-      '<button class="js-shopping-item-toggle">' +
-        '<span class="button-label">check</span>' +
-      '</button>' +
-      '<button class="js-shopping-item-delete">' +
-        '<span class="button-label">delete</span>' +
-      '</button>' +
-    '</div>' +
-  '</li>'
-);
-
-var recipeTemplate = (
-  '<div class="recipe js-recipe">' +
+var blogPostTemplate = (
+  '<div class="blog-post js-blog">' +
     '<h3 class="js-recipe-name"><h3>' +
     '<hr>' +
     '<ul class="js-recipe-ingredients">' +
@@ -28,17 +13,22 @@ var recipeTemplate = (
 );
 
 
-var RECIPES_URL = '/recipes';
-var SHOPPING_LIST_URL = '/shopping-list';
+var POSTS_URL = '/blog-posts';
 
 
-function getAndDisplayRecipes() {
-  console.log('Retrieving recipes')
-  $.getJSON(RECIPES_URL, function(recipes) {
-    console.log('Rendering recipes');
-    var recipesElement = recipes.map(function(recipe) {
-      var element = $(recipeTemplate);
-      element.attr('id', recipe.id);
+function getAndDisplayBlogPosts() {
+  console.log('Retrieving posts')
+  $.getJSON(POSTS_URL, function(recipes) {
+    console.log('Rendering posts');
+    var postsElement = posts.map(function(recipe) {
+      var element = $(blogPostTemplate);
+      element.attr('id', post.id);
+
+
+
+
+
+      ///start here
       element.find('.js-recipe-name').text(recipe.name);
       recipe.ingredients.forEach(function(ingredient) {
         element.find('.js-recipe-ingredients').append(
