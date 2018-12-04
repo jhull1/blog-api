@@ -79,6 +79,17 @@ describe("BlogPosts", function() {
         );
       });
 
+      it("should error if POST missing expected values", function() {
+    const badRequestData = {};
+    return chai
+      .request(app)
+      .post("/blog-posts")
+      .send(badRequestData)
+      .then(function(res) {
+        expect(res).to.have.status(400);
+      });
+  });
+
  it("should update a post on PUT", function() {
     // we initialize our updateData here and then after the initial
     // request to the app, we update it with an `id` property so
