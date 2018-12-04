@@ -11,7 +11,7 @@ const {BlogPosts} = require('./models');
 //const app = express();
 
 
-//adding some blog posts so there's something to retrieve. Do i add the date here or no?
+//adding some blog posts so there's something to retrieve. 
 
 BlogPosts.create('Welcome to Thinkful','First you sign up and select a program','Program Manager');
 BlogPosts.create('Start Your Program','Now you do all the readings, attend sessions and submit your projects','Thinkful Mentor');
@@ -35,7 +35,7 @@ router.post('/', jsonParser, (req, res) => {
     }
   }
 
-//again question about including date here
+
 
    const item = BlogPost.create(req.body.title, req.body.content,req.body.author );
   res.status(201).json(item);
@@ -47,7 +47,7 @@ router.post('/', jsonParser, (req, res) => {
 // of that, log error and send back status code 400. otherwise
 // call `ShoppingList.update` with updated item.
 router.put('/:id', jsonParser, (req, res) => {
-  const requiredFields = ['title', 'content', 'author', 'id'];
+  const requiredFields = ['title', 'content', 'author', 'id','publishDate'];
   for (let i=0; i<requiredFields.length; i++) {
     const field = requiredFields[i];
     if (!(field in req.body)) {
@@ -63,12 +63,13 @@ router.put('/:id', jsonParser, (req, res) => {
     console.error(message);
     return res.status(400).send(message);
   }
-  console.log(`Updating blog post \`${req.params.id}\``);
-  ShoppingList.update({
+  console.log(`Updating blog post with id \`${req.params.id}\``);
+  BlogPosts.update({
     id: req.params.id,
     title: req.body.title,
     content: req.body.content,
-    author: req.body.author
+    author: req.body.author,
+    publishDate: req.body.publishDate
   });
   res.status(204).end();
 });
