@@ -64,7 +64,7 @@ describe("BlogPosts", function() {
     const newPost = { title: "Graduate", content: "Gain your mentor's endorsement, submit everything, pass final interviews, and begin looking for a job.", author: "Thinkful Staff"};
     return chai
       .request(app)
-      .post("/blogPosts")
+      .post("/blog-posts")
       .send(newPost)
       .then(function(res) {
         expect(res).to.have.status(201);
@@ -75,7 +75,7 @@ describe("BlogPosts", function() {
         // response should be deep equal to `newItem` from above if we assign
         // `id` to it from `res.body.id`
         expect(res.body).to.deep.equal(
-          Object.assign(newPost, { id: res.body.id })
+          Object.assign(newPost, { id: res.body.id, publishDate: res.body.publishDate})
         );
       });
 
@@ -93,7 +93,7 @@ describe("BlogPosts", function() {
       chai
         .request(app)
         // first have to get so we have an idea of object to update
-        .get("/blogPosts")
+        .get("/blog-posts")
         .then(function(res) {
           updatePost.id = res.body[0].id;
           // this will return a promise whose value will be the response
@@ -103,7 +103,7 @@ describe("BlogPosts", function() {
           // this approach cleaner and easier to read and reason about.
           return chai
             .request(app)
-            .put(`/blogPosts/${updatePost.id}`)
+            .put(`/blog-posts/${updatePost.id}`)
             .send(updatePost);
         })
         // prove that the PUT request has right status code
@@ -124,9 +124,9 @@ describe("BlogPosts", function() {
         .request(app)
         // first have to get so we have an `id` of item
         // to delete
-        .get("/blogPosts")
+        .get("/blog-posts")
         .then(function(res) {
-          return chai.request(app).delete(`/blogPosts/${res.body[0].id}`);
+          return chai.request(app).delete(`/blog-posts/${res.body[0].id}`);
         })
         .then(function(res) {
           expect(res).to.have.status(204);
